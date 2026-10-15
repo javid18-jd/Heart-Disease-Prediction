@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Generated report{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h1 class="h2 mb-1">Generated report</h1><p class="text-secondary mb-0">Report #{{ report.report_id }} · {{ report.patient_name }}</p></div><button class="btn btn-outline-primary" onclick="window.print()">Print report</button></div>
+<div class="card border-0 shadow-sm"><div class="card-body p-4">
+  <h2 class="h5">Heart Disease Prediction — Educational Report</h2>
+  <p class="small text-secondary">Generated at {{ report.generated_at }}</p>
+  <pre class="report-text">{{ report.report_text }}</pre>
+  <hr><p class="small mb-0"><strong>Disclaimer:</strong> This is an educational machine-learning output, not a medical diagnosis. Please consult a qualified healthcare professional.</p>
+</div></div>
+{% endblock %}

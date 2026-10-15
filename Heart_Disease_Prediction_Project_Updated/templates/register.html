@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="auth-card card border-0 shadow-sm mx-auto">
+  <div class="card-body p-4 p-md-5">
+    <h2 class="h3 mb-1">Create account</h2><p class="text-secondary mb-4">Use a demo account for your local project.</p>
+    <form method="post" class="needs-validation" novalidate>
+      <label class="form-label" for="full_name">Full name</label>
+      <input class="form-control mb-3" id="full_name" name="full_name" required maxlength="100">
+      <label class="form-label" for="email">Email</label>
+      <input class="form-control mb-3" type="email" id="email" name="email" required maxlength="200">
+      <label class="form-label" for="password">Password (minimum 8 characters)</label>
+      <input class="form-control mb-4" type="password" id="password" name="password" minlength="8" required>
+      <button class="btn btn-primary w-100">Create account</button>
+    </form>
+    <p class="small text-secondary mt-3 mb-0">Already registered? <a href="{{ url_for('login') }}">Login</a></p>
+  </div>
+</div>
+{% endblock %}

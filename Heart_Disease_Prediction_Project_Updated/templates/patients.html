@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Patient Registration{% endblock %}
+{% block content %}
+<section class="assessment-shell patient-registration-shell">
+  <div class="assessment-heading"><h1 class="assessment-title">PATIENT REGISTRATION</h1></div>
+  <form method="post" class="assessment-form">
+    <div class="assessment-grid">
+      <div class="assessment-field"><label class="form-label" for="full_name">Full Name *</label><input class="form-control" id="full_name" name="full_name" maxlength="100" required></div>
+      <div class="assessment-field"><label class="form-label" for="date_of_birth">Date of Birth *</label><input class="form-control" id="date_of_birth" name="date_of_birth" type="date" max="{{ today }}" required></div>
+      <div class="assessment-field"><label class="form-label" for="sex">Gender *</label><select class="form-select" id="sex" name="sex" required><option value="">Select gender</option><option value="0">Female</option><option value="1">Male</option></select></div>
+      <div class="assessment-field"><label class="form-label" for="contact">Phone Number *</label><input class="form-control" id="contact" name="contact" type="tel" maxlength="20" pattern="[0-9+() -]{7,20}" required></div>
+      <div class="assessment-field"><label class="form-label" for="email">Email *</label><input class="form-control" id="email" name="email" type="email" maxlength="254" required></div>
+      <div class="assessment-field"><label class="form-label">Patient ID</label><input class="form-control" value="Auto-generated after submission" disabled></div>
+    </div>
+    <div class="assessment-actions"><button class="btn btn-primary btn-lg">SUBMIT</button></div>
+  </form>
+</section>
+<div class="card border-0 shadow-sm mt-4"><div class="card-body"><h2 class="h5 mb-3">Registered Patients</h2>
+{% if patients %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Patient ID</th><th>Full Name</th><th>Date of Birth</th><th>Gender</th><th>Phone Number</th><th>Email</th></tr></thead><tbody>
+{% for p in patients %}<tr><td>PT-{{ p.patient_id }}</td><td>{{ p.full_name }}</td><td>{{ p.date_of_birth or '—' }}</td><td>{% if p.sex == 0 %}Female{% elif p.sex == 1 %}Male{% else %}—{% endif %}</td><td>{{ p.contact or '—' }}</td><td>{{ p.email or '—' }}</td></tr>{% endfor %}
+</tbody></table></div>{% else %}<p class="text-secondary mb-0">No patients registered yet.</p>{% endif %}
+</div></div>
+{% endblock %}

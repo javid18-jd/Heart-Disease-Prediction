@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <div><p class="eyebrow mb-1">OVERVIEW</p><h1 class="h2 mb-0">Dashboard</h1><p class="text-secondary mb-0">Welcome, {{ session.get('full_name') }}.</p></div>
+  <a class="btn btn-primary" href="{{ url_for('predict') }}">+ New assessment</a>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><div class="stat-card"><span>Patients</span><strong>{{ patients|length }}</strong></div></div>
+  <div class="col-md-4"><div class="stat-card"><span>Recent predictions shown</span><strong>{{ history|length }}</strong></div></div>
+  <div class="col-md-4"><div class="stat-card"><span>Model</span><strong class="fs-5">Random Forest</strong></div></div>
+</div>
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h5 mb-0">Recent prediction history</h2><a href="{{ url_for('history') }}">View all</a></div>
+    {% if history %}
+    <div class="table-responsive"><table class="table align-middle">
+      <thead><tr><th>Patient</th><th>Result class</th><th>Model probability</th><th>Date</th><th></th></tr></thead>
+      <tbody>{% for item in history %}
+      <tr><td>{{ item.patient_name }}</td><td>{% if item.predicted_class == 1 %}<span class="badge text-bg-warning">Positive class</span>{% else %}<span class="badge text-bg-success">Negative class</span>{% endif %}</td>
+      <td>{{ '%.1f'|format(item.probability * 100) if item.probability is not none else '—' }}%</td><td>{{ item.created_at }}</td><td><a href="{{ url_for('result', prediction_id=item.prediction_id) }}">Details</a></td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+    {% else %}<p class="text-secondary mb-0">No predictions yet. Add a patient and create an assessment.</p>{% endif %}
+  </div>
+</div>
+<div class="alert alert-info mt-4 mb-0">The class and probability are model outputs from a small historical dataset; they are not a medical diagnosis or an individual's confirmed risk.</div>
+{% endblock %}

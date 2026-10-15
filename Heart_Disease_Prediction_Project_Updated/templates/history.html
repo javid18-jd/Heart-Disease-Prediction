@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Prediction history{% endblock %}
+{% block content %}
+<h1 class="h2 mb-1">Prediction history</h1><p class="text-secondary mb-4">Results for your demo patient records.</p>
+<div class="card border-0 shadow-sm"><div class="card-body">
+{% if history %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>ID</th><th>Patient</th><th>Class</th><th>Probability</th><th>Created</th><th></th></tr></thead><tbody>
+{% for item in history %}<tr><td>{{ item.prediction_id }}</td><td>{{ item.patient_name }}</td><td>{{ 'Positive' if item.predicted_class == 1 else 'Negative' }}</td><td>{{ '%.1f'|format(item.probability * 100) if item.probability is not none else '—' }}%</td><td>{{ item.created_at }}</td><td><a href="{{ url_for('result', prediction_id=item.prediction_id) }}">View</a></td></tr>{% endfor %}
+</tbody></table></div>{% else %}<p class="text-secondary mb-0">No predictions have been saved yet.</p>{% endif %}
+</div></div>
+{% endblock %}

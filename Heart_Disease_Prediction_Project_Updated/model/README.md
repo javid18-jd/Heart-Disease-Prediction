@@ -1,0 +1,1 @@
+Run `python train_model.py` to create `heart_disease_model.joblib` and `training_metrics.json`. Generated artifacts are ignored by Git by default.

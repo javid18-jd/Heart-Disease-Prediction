@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Heart Risk Assessment{% endblock %}
+{% block content %}
+<section class="assessment-shell">
+  <div class="assessment-heading">
+    <h1 class="assessment-title">HEART RISK ASSESSMENT</h1>
+  </div>
+  <div class="alert alert-warning py-2 small">Educational demonstration only. This model is not clinically validated and cannot diagnose or rule out heart disease.</div>
+  {% if not patients %}<div class="alert alert-info">Add a patient first on the <a href="{{ url_for('patients') }}">Patients page</a>.</div>{% endif %}
+  <form method="post" id="predictionForm" class="assessment-form">
+    <div class="assessment-grid">
+      <div class="assessment-field"><label class="form-label" for="age">Age *</label><input class="form-control" id="age" name="age" type="number" min="1" max="120" step="1" required></div>
+      <div class="assessment-field"><label class="form-label" for="sex">Sex *</label><select class="form-select" id="sex" name="sex" required><option value="">Select</option><option value="0">Female</option><option value="1">Male</option></select></div>
+      <div class="assessment-field"><label class="form-label" for="cp">Chest Pain Type *</label><select class="form-select" id="cp" name="cp" required><option value="">Select type</option><option value="1">Typical angina</option><option value="2">Atypical angina</option><option value="3">Non-anginal pain</option><option value="4">Asymptomatic</option></select></div>
+      <div class="assessment-field"><label class="form-label" for="trestbps">Resting BP (mmHg) *</label><input class="form-control" id="trestbps" name="trestbps" type="number" min="1" step="1" required></div>
+      <div class="assessment-field"><label class="form-label" for="chol">Cholesterol (mg/dL) *</label><input class="form-control" id="chol" name="chol" type="number" min="1" step="1" required></div>
+      <div class="assessment-field"><label class="form-label" for="fbs">Fasting Blood Sugar *</label><select class="form-select" id="fbs" name="fbs" required><option value="">Select</option><option value="0">No</option><option value="1">Yes</option></select></div>
+      <div class="assessment-field"><label class="form-label" for="thalach">Maximum Heart Rate (bpm) *</label><input class="form-control" id="thalach" name="thalach" type="number" min="1" step="1" required></div>
+      <div class="assessment-field"><label class="form-label" for="exang">Exercise Angina *</label><select class="form-select" id="exang" name="exang" required><option value="">Select</option><option value="0">No</option><option value="1">Yes</option></select></div>
+      <div class="assessment-field"><label class="form-label" for="oldpeak">Oldpeak *</label><input class="form-control" id="oldpeak" name="oldpeak" type="number" min="0" max="10" step="0.1" required></div>
+      <div class="assessment-field"><label class="form-label" for="slope">ST Slope *</label><select class="form-select" id="slope" name="slope" required><option value="">Select</option><option value="1">Upsloping</option><option value="2">Flat</option><option value="3">Downsloping</option></select></div>
+    </div>
+    <div class="patient-select-wrap mt-4"><label class="form-label" for="patient_id">Patient *</label><select class="form-select" id="patient_id" name="patient_id" required><option value="">Select patient</option>{% for p in patients %}<option value="{{ p.patient_id }}">{{ p.full_name }} (PT-{{ p.patient_id }})</option>{% endfor %}</select></div>
+    <div class="assessment-actions"><button class="btn btn-primary btn-lg" {% if not patients %}disabled{% endif %}>SUBMIT</button></div>
+  </form>
+</section>
+{% endblock %}

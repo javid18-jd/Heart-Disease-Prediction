@@ -1,0 +1,10 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+instance/
+model/*.joblib
+model/training_metrics.json
+data/processed.cleveland.data
+.DS_Store

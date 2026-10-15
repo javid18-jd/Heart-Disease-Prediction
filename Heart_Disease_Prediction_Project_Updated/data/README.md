@@ -1,0 +1,1 @@
+The training script downloads `processed.cleveland.data` from the UCI Machine Learning Repository into this folder. The raw data file is intentionally not bundled in the starter ZIP.
