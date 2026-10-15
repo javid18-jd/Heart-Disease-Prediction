@@ -8,3 +8,5 @@ model/*.joblib
 model/training_metrics.json
 data/processed.cleveland.data
 .DS_Store
+
+*.db
